@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import logo from '../../assets/logo.svg';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { useStyles } from './styles';
 
@@ -64,7 +65,7 @@ const Login = () => {
               required
               fullWidth
               id='email'
-              label='Email Address'
+              label='Digite seu e-mail'
               name='email'
               autoComplete='email'
               value={user}
@@ -79,7 +80,7 @@ const Login = () => {
               required
               fullWidth
               name='password'
-              label='Password'
+              label='Digite sua senha'
               type='password'
               id='password'
               value={password}
@@ -96,15 +97,19 @@ const Login = () => {
                 </Link>
               </Grid>
             </Grid>
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              color='primary'
-              className={classes.submit}
-            >
-              ENTRAR
-            </Button>
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}
+              >
+                ENTRAR
+              </Button>
+            )}
             <Box mt={1}>
               <Typography variant='body2' color='textDanger' align='center'>
                 {`*Houve um erro`}
