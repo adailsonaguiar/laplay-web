@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import firebase from 'firebase';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,8 +13,43 @@ import logo from '../../assets/logo.svg';
 
 import { useStyles } from './styles';
 
-export default function Login() {
+const Login = () => {
   const classes = useStyles();
+
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const [erroMessage, setErroMessage] = useState('');
+
+  const authenticate = async e => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const userAuthenticate = await firebase
+        .auth()
+        .signInWithEmailAndPassword(user, password);
+      setLoading(false);
+      localStorage.setItem('user', JSON.stringify(userAuthenticate.user));
+      history.push('/');
+    } catch (erro) {
+      console.log(erro);
+      setLoading(false);
+      verifyErrors(erro);
+    }
+  };
+
+  const verifyErrors = erro => {
+    if (erro.code === 'auth/wrong-password') {
+      setErroMessage('*Senha incorreta!');
+    }
+    if (erro.code === 'auth/invalid-email') {
+      setErroMessage('*E-mail inválido!');
+    }
+    if (erro.code === 'auth/user-not-found') {
+      setErroMessage('*E-mail não cadastrado!');
+    }
+  };
 
   return (
     <Grid container component='main' className={classes.root}>
@@ -21,7 +58,7 @@ export default function Login() {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <img className={classes.logo} src={logo} alt='logo' />
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={authenticate} noValidate>
             <TextField
               margin='normal'
               required
@@ -30,6 +67,11 @@ export default function Login() {
               label='Email Address'
               name='email'
               autoComplete='email'
+              value={user}
+              onChange={e => {
+                setUser(e.target.value);
+                setErroMessage('');
+              }}
               autoFocus
             />
             <TextField
@@ -40,6 +82,11 @@ export default function Login() {
               label='Password'
               type='password'
               id='password'
+              value={password}
+              onChange={e => {
+                setPassword(e.target.value);
+                setErroMessage('');
+              }}
               autoComplete='current-password'
             />
             <Grid container>
@@ -73,4 +120,6 @@ export default function Login() {
       </Grid>
     </Grid>
   );
-}
+};
+
+export default Login;
