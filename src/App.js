@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { outerTheme } from './ThemeProvider';
 import './config/firebase-config';
 
-function App() {
+const App = () => {
   return (
     <div className='App'>
       <ThemeProvider theme={outerTheme}>
@@ -13,6 +13,6 @@ function App() {
       </ThemeProvider>
     </div>
   );
-}
+};
 
 export default App;

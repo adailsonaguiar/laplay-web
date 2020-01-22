@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useStyles } from './styles.js';
+import { useStyles, logOutButton } from './styles.js';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -34,7 +34,7 @@ const Sidebar = () => {
           <Typography variant='subtitle2' color='inherit'>
             {user}
           </Typography>
-          <Button color='primary' onClick={logOut}>
+          <Button className={styles.logOut} onClick={logOut}>
             SAIR
           </Button>
         </div>

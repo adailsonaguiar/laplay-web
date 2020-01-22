@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
 import { useStyles } from './styles';
 
-export default function Cadastro() {
+const Cadastro = () => {
   const classes = useStyles();
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
@@ -136,4 +136,6 @@ export default function Cadastro() {
       </Grid>
     </Grid>
   );
-}
+};
+
+export default Cadastro;

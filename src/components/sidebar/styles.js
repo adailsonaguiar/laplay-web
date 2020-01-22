@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
   root: {
@@ -19,5 +19,9 @@ export const useStyles = makeStyles(theme => ({
   alignRow: {
     display: 'flex',
     alignItems: 'center'
+  },
+  logOut: {
+    color: '#FF4040',
+    fontWeight: 'bold'
   }
 }));

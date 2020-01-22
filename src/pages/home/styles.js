@@ -1,4 +1,4 @@
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
   root: {
@@ -27,12 +27,15 @@ export const useStyles = makeStyles(theme => ({
   logo: {
     width: 222
   },
-  paper: {
+  searchBar: {
     padding: '2px 4px',
     display: 'flex',
     width: 400,
     borderRadius: 24,
-    marginTop: 35
+    marginTop: 35,
+    '@media (max-width: 600px)': {
+      width: '90%'
+    }
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -43,6 +46,13 @@ export const useStyles = makeStyles(theme => ({
     width: 419,
     height: 68,
     borderRadius: 6,
-    marginTop: 30
+    marginTop: 30,
+    '@media (max-width: 600px)': {
+      width: '90%'
+    }
+  },
+  albumImage: {
+    width: 200,
+    height: 200
   }
 }));

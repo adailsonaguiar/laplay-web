@@ -112,7 +112,7 @@ const Login = () => {
             )}
             <Box mt={1}>
               <Typography variant='body2' color='textDanger' align='center'>
-                {`*Houve um erro`}
+                {`${erroMessage}`}
               </Typography>
             </Box>
             <Box mt={4}>
