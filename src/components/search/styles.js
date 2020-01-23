@@ -1,17 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  buttonSearch: {
-    borderRadius: 24,
-    width: 183,
-    height: 34
-  },
   Container: {
     display: 'flex',
     flexDirection: 'column',
