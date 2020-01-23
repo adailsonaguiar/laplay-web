@@ -1,9 +1,11 @@
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import React from 'react';
-import Login from './pages/login/Login';
-import Home from './pages/home/Home';
-import Cadastro from './pages/cadastro/Cadastro';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+
 import { onAuth } from './config/auth';
+
+import Login from './pages/login/Login';
+import Cadastro from './pages/cadastro/Cadastro';
+import Home from './pages/home';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
