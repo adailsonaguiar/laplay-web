@@ -15,19 +15,21 @@ import api from '../../services/api';
 
 const Home = () => {
   const styles = useStyles();
-  const [artist, setArtist] = useState([]);
+  const [artistSearch, setArtistSearch] = useState('');
+  const [artists, setArtists] = useState([]);
 
-  const getAlbum = async e => {
+  const getArtists = async e => {
     e.preventDefault();
     const response = await api.get('/', {
       params: {
         method: 'artist.search',
-        artist: 'Halsey',
+        artist: artistSearch,
         api_key: '0c87b1c937645d216bda842e84fc5cfe',
-        format: 'json'
+        format: 'json',
+        limit: 10
       }
     });
-    setArtist(response.data.results.artistmatches.artist);
+    setArtists(response.data.results.artistmatches.artist);
   };
 
   return (
@@ -37,13 +39,17 @@ const Home = () => {
         <Paper
           elevation={3}
           component='form'
-          onSubmit={getAlbum}
+          onSubmit={getArtists}
           className={styles.searchBar}
         >
           <InputBase
             className={styles.input}
             placeholder='Pesquise por seu artista ou album favorito...'
             inputProps={{ 'aria-label': 'search google maps' }}
+            value={artistSearch}
+            onChange={e => {
+              setArtistSearch(e.target.value);
+            }}
           />
           <IconButton
             type='submit'
@@ -54,7 +60,7 @@ const Home = () => {
           </IconButton>
         </Paper>
       </div>
-      {artist.map(artist => (
+      {artists.map(artist => (
         <Paper key={artist.url} elevation={3} className={styles.artist}>
           <Avatar
             variant='square'
