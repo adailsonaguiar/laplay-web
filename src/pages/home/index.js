@@ -10,7 +10,7 @@ const Home = () => {
       <Sidebar />
       <Switch>
         <Route exact path='/' component={Search} />
-        <Route exact path='/albums' component={Album} />
+        <Route exact path='/albums/:artist' component={Album} />
       </Switch>
     </HashRouter>
   );

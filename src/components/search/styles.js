@@ -30,7 +30,11 @@ export const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     flex: 1
   },
-  albumInfo: {
+  artist: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
     background: '#fff',
     width: 419,
     height: 68,
@@ -40,8 +44,33 @@ export const useStyles = makeStyles(theme => ({
       width: '90%'
     }
   },
-  albumImage: {
-    width: 200,
-    height: 200
+  artistImage: {
+    width: 50,
+    height: 50
+  },
+  artistInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 20,
+    width: '100%'
+  },
+  artistNameLister: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  artistAlbums: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  artistName: {
+    fontSize: 20,
+    fontWeight: 500
+  },
+  artistListeners: {
+    fontWeight: 200,
+    fontSize: 12
   }
 }));

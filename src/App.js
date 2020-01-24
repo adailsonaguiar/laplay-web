@@ -1,8 +1,8 @@
 import React from 'react';
 import Routes from './routes';
-import './global.css';
+import './styles/global.css';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { outerTheme } from './ThemeProvider';
+import { outerTheme } from './styles/ThemeProvider';
 import './config/firebase-config';
 
 const App = () => {

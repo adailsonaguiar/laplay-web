@@ -7,7 +7,10 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
+import Link from '@material-ui/core/Link';
 import SearchIcon from '@material-ui/icons/Search';
+import FilterNone from '@material-ui/icons/FilterNone';
+
 import api from '../../services/api';
 
 const Home = () => {
@@ -25,7 +28,6 @@ const Home = () => {
       }
     });
     setArtist(response.data.results.artistmatches.artist);
-    console.log(response.data.results.artistmatches.artist);
   };
 
   return (
@@ -52,16 +54,28 @@ const Home = () => {
           </IconButton>
         </Paper>
       </div>
-      {artist.map(album => (
-        <Paper key={album.url} elevation={3} className={styles.albumInfo}>
-          <h3>{album.name}</h3>
-          <h4>{album.listeners}</h4>
+      {artist.map(artist => (
+        <Paper key={artist.url} elevation={3} className={styles.artist}>
           <Avatar
             variant='square'
-            className={styles.albumImage}
-            alt={album.name}
-            src={album.image[2]['#text']}
+            className={styles.artistImage}
+            alt={artist.name}
+            src={artist.image[2]['#text']}
           />
+          <div className={styles.artistInfo}>
+            <div className={styles.artistNameLister}>
+              <h3 className={styles.artistName}>{artist.name}</h3>
+              <h4 className={styles.artistListeners}>
+                {artist.listeners} ouvintes
+              </h4>
+            </div>
+            <Link href={`/#/albums/${artist.name}`}>
+              <div className={styles.artistAlbums}>
+                <FilterNone color='primary' />
+                <h4 className={styles.artistListeners}>Albums</h4>
+              </div>
+            </Link>
+          </div>
         </Paper>
       ))}
     </Container>
