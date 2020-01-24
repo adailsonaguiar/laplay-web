@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useStyles, logOutButton } from './styles.js';
+import { useStyles } from './styles.js';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';

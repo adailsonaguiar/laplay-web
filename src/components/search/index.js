@@ -20,16 +20,29 @@ const Home = () => {
 
   const getArtists = async e => {
     e.preventDefault();
-    const response = await api.get('/', {
-      params: {
-        method: 'artist.search',
-        artist: artistSearch,
-        api_key: '0c87b1c937645d216bda842e84fc5cfe',
-        format: 'json',
-        limit: 10
-      }
-    });
-    setArtists(response.data.results.artistmatches.artist);
+    if (artistSearch.length > 0) {
+      const response = await api.get('/', {
+        params: {
+          method: 'artist.search',
+          artist: artistSearch,
+          api_key: '0c87b1c937645d216bda842e84fc5cfe',
+          format: 'json',
+          limit: 10
+        }
+      });
+      setArtists(response.data.results.artistmatches.artist);
+    }
+  };
+
+  const formatUrl = url => {
+    return url.split(' ').join('-');
+  };
+
+  const formatNameArtist = name => {
+    if (name.length > 20) {
+      return `${name.substr(0, 20)}...`;
+    }
+    return name;
   };
 
   return (
@@ -44,6 +57,7 @@ const Home = () => {
         >
           <InputBase
             className={styles.input}
+            autoFocus
             placeholder='Pesquise por seu artista ou album favorito...'
             inputProps={{ 'aria-label': 'search google maps' }}
             value={artistSearch}
@@ -70,12 +84,14 @@ const Home = () => {
           />
           <div className={styles.artistInfo}>
             <div className={styles.artistNameLister}>
-              <h3 className={styles.artistName}>{artist.name}</h3>
+              <h3 className={styles.artistName}>
+                {formatNameArtist(artist.name)}
+              </h3>
               <h4 className={styles.artistListeners}>
                 {artist.listeners} ouvintes
               </h4>
             </div>
-            <Link href={`/#/albums/${artist.name}`}>
+            <Link href={`/#/albums/${formatUrl(artist.name)}`}>
               <div className={styles.artistAlbums}>
                 <FilterNone color='primary' />
                 <h4 className={styles.artistListeners}>Albums</h4>

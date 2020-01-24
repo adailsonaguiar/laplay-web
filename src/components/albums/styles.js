@@ -18,8 +18,9 @@ export const useStyles = makeStyles(theme => ({
     }
   },
   avatar: {
-    width: '100px',
-    height: '100px'
+    width: 100,
+    height: 100,
+    borderRadius: 10
   },
   artistInfo: {
     display: 'flex',
@@ -31,7 +32,11 @@ export const useStyles = makeStyles(theme => ({
     marginBottom: 5
   },
   artistName: {
-    fontSize: 30
+    fontSize: 30,
+    fontWeight: 'bold'
+  },
+  artistBio: {
+    textAlign: 'justify'
   },
   playcount: {
     fontSize: 10,
@@ -39,7 +44,7 @@ export const useStyles = makeStyles(theme => ({
   },
   albumInfo: {
     background: '#fff',
-    width: 500,
+    width: 600,
     padding: 20,
     borderRadius: 6,
     marginTop: 30,
@@ -53,7 +58,7 @@ export const useStyles = makeStyles(theme => ({
     width: 268,
     borderRadius: 24,
     '@media (max-width: 600px)': {
-      width: '90%'
+      width: '100%'
     }
   },
   input: {
