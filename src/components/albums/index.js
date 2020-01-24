@@ -13,6 +13,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 
 import api from '../../services/api';
 
@@ -51,6 +52,7 @@ const Albums = ({ match }) => {
         }
       });
       setArtist(response.data.artist);
+      console.log(response.data.artist);
     };
     getArtist();
     getAlbums();
@@ -66,7 +68,6 @@ const Albums = ({ match }) => {
       <div className={styles.Header}>
         <Avatar
           className={styles.avatar}
-          elevation={3}
           variant='square'
           alt={artist.name}
           src={albums[0] ? albums[0].image[3]['#text'] : ''}
@@ -80,6 +81,12 @@ const Albums = ({ match }) => {
           >
             {artist.name}
           </Typography>
+          <Chip
+            color='primary'
+            label={`${
+              artist.stats ? Number(artist.stats.listeners).toLocaleString() : 0
+            } ouvintes`}
+          />
         </div>
         <Paper elevation={3} component='form' className={styles.searchBar}>
           <InputBase
