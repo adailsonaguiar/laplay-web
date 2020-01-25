@@ -67,7 +67,7 @@ const Albums = ({ match }) => {
       <div className={styles.Header}>
         <img
           className={styles.avatar}
-          alt={artist.name}
+          alt={artist ? artist.name : ''}
           src={albums[0] ? albums[0].image[3]['#text'] : logo}
         />
         <div className={styles.artistInfo}>
@@ -77,12 +77,12 @@ const Albums = ({ match }) => {
             color='secondary'
             align='center'
           >
-            {artist.name}
+            {artist ? artist.name : ''}
           </Typography>
           <Chip
             color='primary'
             label={`${
-              artist.stats ? Number(artist.stats.listeners).toLocaleString() : 0
+              artist ? Number(artist.stats.listeners).toLocaleString() : 0
             } ouvintes`}
           />
         </div>
@@ -95,7 +95,7 @@ const Albums = ({ match }) => {
             color='secondary'
             align='center'
           >
-            {artist.bio ? formatBio(artist.bio.content) : ''}
+            {artist ? formatBio(artist.bio.content) : ''}
           </Typography>
         </div>
         <GridList cellHeight={150} cols={3} className={styles.gridList}>
