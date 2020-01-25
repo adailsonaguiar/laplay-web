@@ -13,6 +13,7 @@ export const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    width: '50vw',
     '@media (max-width: 600px)': {
       flexDirection: 'column'
     }
@@ -20,12 +21,12 @@ export const useStyles = makeStyles(theme => ({
   avatar: {
     width: 100,
     height: 100,
-    borderRadius: 10
+    borderRadius: 5
   },
   artistInfo: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 30,
     marginRight: 30,
@@ -33,7 +34,10 @@ export const useStyles = makeStyles(theme => ({
   },
   artistName: {
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    '@media (max-width: 600px)': {
+      fontSize: 20
+    }
   },
   artistBio: {
     textAlign: 'justify'
@@ -52,20 +56,6 @@ export const useStyles = makeStyles(theme => ({
       width: '90%'
     }
   },
-  searchBar: {
-    padding: '2px 4px',
-    display: 'flex',
-    width: 268,
-    borderRadius: 24,
-    '@media (max-width: 600px)': {
-      width: '100%'
-    }
-  },
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1
-  },
-  gridList: {},
   icon: {
     color: 'rgba(255, 255, 255, 0.54)'
   }

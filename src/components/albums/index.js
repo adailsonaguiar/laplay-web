@@ -12,9 +12,9 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 
+import logo from '../../assets/icon.svg';
 import api from '../../services/api';
 
 const Albums = ({ match }) => {
@@ -52,7 +52,6 @@ const Albums = ({ match }) => {
         }
       });
       setArtist(response.data.artist);
-      console.log(response.data.artist);
     };
     getArtist();
     getAlbums();
@@ -66,11 +65,10 @@ const Albums = ({ match }) => {
   return (
     <Container className={styles.Container} maxWidth='sm'>
       <div className={styles.Header}>
-        <Avatar
+        <img
           className={styles.avatar}
-          variant='square'
           alt={artist.name}
-          src={albums[0] ? albums[0].image[3]['#text'] : ''}
+          src={albums[0] ? albums[0].image[3]['#text'] : logo}
         />
         <div className={styles.artistInfo}>
           <Typography
@@ -88,20 +86,6 @@ const Albums = ({ match }) => {
             } ouvintes`}
           />
         </div>
-        <Paper elevation={3} component='form' className={styles.searchBar}>
-          <InputBase
-            className={styles.input}
-            placeholder='Pesquise por um album...'
-            inputProps={{ 'aria-label': 'search google maps' }}
-          />
-          <IconButton
-            type='submit'
-            className={styles.iconButton}
-            aria-label='search'
-          >
-            <SearchIcon />
-          </IconButton>
-        </Paper>
       </div>
       <Paper elevation={3} className={styles.albumInfo}>
         <div className={styles.bio}>
