@@ -3,9 +3,8 @@ import { useStyles } from './styles';
 
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
+import Divider from '@material-ui/core/Divider';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -13,6 +12,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import logo from '../../assets/icon.svg';
 import api from '../../services/api';
@@ -21,6 +21,7 @@ const Albums = ({ match }) => {
   const styles = useStyles();
   const [albums, setAlbums] = useState([]);
   const [artist, setArtist] = useState('');
+  const matches = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     const artistName = match.params.artist.split('-').join(' ');
@@ -42,6 +43,7 @@ const Albums = ({ match }) => {
         }
       }
     };
+
     const getArtist = async () => {
       const response = await api.get('/', {
         params: {
@@ -60,6 +62,13 @@ const Albums = ({ match }) => {
 
   const formatBio = text => {
     return text.substr(0, text.indexOf('<a href'));
+  };
+
+  const getGridListCols = () => {
+    if (matches) {
+      return 1;
+    }
+    return 3;
   };
 
   return (
@@ -98,7 +107,12 @@ const Albums = ({ match }) => {
             {artist ? formatBio(artist.bio.content) : ''}
           </Typography>
         </div>
-        <GridList cellHeight={150} cols={3} className={styles.gridList}>
+        <Divider light />
+        <GridList
+          cellHeight={150}
+          cols={getGridListCols()}
+          className={styles.gridList}
+        >
           <GridListTile key='Subheader' cols={3} style={{ height: 'auto' }}>
             <ListSubheader component='div'>Albums</ListSubheader>
           </GridListTile>
