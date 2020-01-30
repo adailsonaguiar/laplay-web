@@ -23,5 +23,9 @@ export const useStyles = makeStyles(theme => ({
   logOut: {
     color: '#FF4040',
     fontWeight: 'bold'
+  },
+  menuItem: {
+    marginLeft: 20,
+    textDecoration: 'none'
   }
 }));
