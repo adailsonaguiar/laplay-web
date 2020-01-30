@@ -9,7 +9,7 @@ import logo from '../../assets/logo.svg';
 
 import firebase from 'firebase';
 
-const SearchHistory = ({ match }) => {
+const SearchHistory = () => {
   const styles = useStyles();
   const [histories, setHistories] = useState([]);
 
