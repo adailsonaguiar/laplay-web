@@ -17,6 +17,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import logo from '../../assets/icon.svg';
 import api from '../../services/api';
 
+import { formatUrl, formatSummary } from '../../utils/Functions';
+
 const Albums = ({ match }) => {
   const styles = useStyles();
   const [albums, setAlbums] = useState([]);
@@ -40,6 +42,7 @@ const Albums = ({ match }) => {
         const error = response.data['error'] === 6 ? true : false;
         if (!error) {
           setAlbums(response.data.topalbums.album);
+          console.log(response.data.topalbums.album);
         }
       }
     };
@@ -59,10 +62,6 @@ const Albums = ({ match }) => {
     getAlbums();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const formatBio = text => {
-    return text.substr(0, text.indexOf('<a href'));
-  };
 
   const getGridListCols = () => {
     if (matches) {
@@ -104,7 +103,7 @@ const Albums = ({ match }) => {
             color='secondary'
             align='center'
           >
-            {artist ? formatBio(artist.bio.content) : ''}
+            {artist ? formatSummary(artist.bio.content) : ''}
           </Typography>
         </div>
         <Divider light />
@@ -126,7 +125,9 @@ const Albums = ({ match }) => {
                   <IconButton
                     aria-label={`info about`}
                     className={styles.icon}
-                    href={album.url}
+                    href={formatUrl(
+                      `/#/album/${album.name}/${album.artist.name}`
+                    )}
                   >
                     <InfoIcon color='primary' />
                   </IconButton>

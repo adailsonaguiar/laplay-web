@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useStyles } from './styles';
 import Container from '@material-ui/core/Container';
 import logo from '../../assets/logo.svg';
+import firebase from 'firebase';
 
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -12,6 +13,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import FilterNone from '@material-ui/icons/FilterNone';
 
 import api from '../../services/api';
+
+import { formatUrl } from '../../utils/Functions';
 
 const Home = () => {
   const styles = useStyles();
@@ -31,11 +34,20 @@ const Home = () => {
         }
       });
       setArtists(response.data.results.artistmatches.artist);
+      addSearchHistory(artistSearch);
     }
   };
 
-  const formatUrl = url => {
-    return url.split(' ').join('-');
+  const addSearchHistory = async artistSearch => {
+    const uid = JSON.parse(localStorage.getItem('user')).uid;
+    const body = {
+      datetime: Date.now(),
+      artistSearch
+    };
+    await firebase
+      .database()
+      .ref(`historic/${uid}`)
+      .push(body);
   };
 
   const formatNameArtist = name => {

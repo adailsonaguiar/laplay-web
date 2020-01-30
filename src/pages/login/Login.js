@@ -15,7 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStyles } from './styles';
 
 const Login = () => {
-  const classes = useStyles();
+  const styles = useStyles();
 
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
@@ -53,13 +53,13 @@ const Login = () => {
   };
 
   return (
-    <Grid container component='main' className={classes.root}>
+    <Grid container component='main' className={styles.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={false} sm={4} md={7} className={styles.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <img className={classes.logo} src={logo} alt='logo' />
-          <form className={classes.form} onSubmit={authenticate} noValidate>
+        <div className={styles.paper}>
+          <img className={styles.logo} src={logo} alt='logo' />
+          <form className={styles.form} onSubmit={authenticate} noValidate>
             <TextField
               margin='normal'
               required
@@ -105,7 +105,7 @@ const Login = () => {
                 fullWidth
                 variant='contained'
                 color='primary'
-                className={classes.submit}
+                className={styles.submit}
               >
                 ENTRAR
               </Button>

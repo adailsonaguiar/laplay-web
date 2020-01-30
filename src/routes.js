@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { onAuth } from './config/auth';
 
 import Login from './pages/login/Login';
-import Cadastro from './pages/cadastro/Cadastro';
+import Register from './pages/register/Register';
 import Home from './pages/home';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -27,7 +27,7 @@ const Routes = () => {
       <Switch>
         <PrivateRoute exact path='/' component={Home} />
         <Route path='/login' component={Login} />
-        <Route path='/cadastro' component={Cadastro} />
+        <Route path='/cadastro' component={Register} />
       </Switch>
     </BrowserRouter>
   );
