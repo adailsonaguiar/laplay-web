@@ -3,59 +3,42 @@ import { useStyles } from './styles';
 
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import logo from '../../assets/logo.svg';
-import api from '../../services/api';
+
+import firebase from 'firebase';
 
 const SearchHistory = ({ match }) => {
   const styles = useStyles();
-  const [albums, setAlbums] = useState([]);
-  const [artist, setArtist] = useState('');
-  const matches = useMediaQuery('(max-width:600px)');
+  const [histories, setHistories] = useState([]);
 
   useEffect(() => {
-    /*  const artistName = match.params.artist.split('-').join(' ');
-    const getAlbums = async () => {
-      if (artistName) {
-        const response = await api.get('/', {
-          params: {
-            format: 'json',
-            method: 'artist.gettopalbums',
-            artist: artistName,
-            api_key: '0c87b1c937645d216bda842e84fc5cfe',
-            limit: 12,
-            page: 1
-          }
-        });
-        const error = response.data['error'] === 6 ? true : false;
-        if (!error) {
-          setAlbums(response.data.topalbums.album);
-        }
-      }
-    };
+    const getHistory = async () => {
+      const uid = JSON.parse(localStorage.getItem('user')).uid;
+      const res = firebase.database().ref('historic/' + uid);
 
-    const getArtist = async () => {
-      const response = await api.get('/', {
-        params: {
-          method: 'artist.getinfo',
-          artist: artistName,
-          api_key: '0c87b1c937645d216bda842e84fc5cfe',
-          format: 'json'
+      await res.on('value', snapshot => {
+        const history = snapshot.val();
+
+        if (history) {
+          var result = Object.keys(history).map(key => {
+            return [key, history[key]];
+          });
+          setHistories(result);
         }
       });
-      setArtist(response.data.artist);
     };
-    getArtist();
-    getAlbums(); */
+    getHistory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const formatBio = text => {
-    return text.substr(0, text.indexOf('<a href'));
+  const getDate = datetime => {
+    const date = new Date(datetime);
+    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const month =
+      date.getMonth() < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+    return `${day}/${month}/${date.getFullYear()}`;
   };
 
   return (
@@ -72,11 +55,15 @@ const SearchHistory = ({ match }) => {
         >
           Seu histórico de busca
         </Typography>
-        <p className={styles.history}>29/01/2019 13:18 - Teste de consulta</p>
-        <p className={styles.history}>29/01/2019 13:18 - Teste de consulta</p>
-        <p className={styles.history}>29/01/2019 13:18 - Teste de consulta</p>
-        <p className={styles.history}>29/01/2019 13:18 - Teste de consulta</p>
-        <p className={styles.history}>29/01/2019 13:18 - Teste de consulta</p>
+        {histories ? (
+          histories.map(history => (
+            <p key={history[0]} className={styles.history}>
+              {`${getDate(history[1].datetime)} - ${history[1].artistSearch}`}
+            </p>
+          ))
+        ) : (
+          <></>
+        )}
       </Paper>
     </Container>
   );
