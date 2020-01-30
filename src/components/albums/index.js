@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStyles } from './styles';
+import { stylePattern } from '../../styles/albumsPattern';
 
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
@@ -21,6 +22,7 @@ import { formatUrl, formatSummary } from '../../utils/Functions';
 
 const Albums = ({ match }) => {
   const styles = useStyles();
+  const stylePt = stylePattern();
   const [albums, setAlbums] = useState([]);
   const [artist, setArtist] = useState('');
   const matches = useMediaQuery('(max-width:600px)');
@@ -42,7 +44,6 @@ const Albums = ({ match }) => {
         const error = response.data['error'] === 6 ? true : false;
         if (!error) {
           setAlbums(response.data.topalbums.album);
-          console.log(response.data.topalbums.album);
         }
       }
     };
@@ -71,16 +72,16 @@ const Albums = ({ match }) => {
   };
 
   return (
-    <Container className={styles.Container} maxWidth='sm'>
-      <div className={styles.Header}>
+    <Container className={stylePt.Container} maxWidth='sm'>
+      <div className={stylePt.Header}>
         <img
-          className={styles.avatar}
+          className={stylePt.avatar}
           alt={artist ? artist.name : ''}
           src={albums[0] ? albums[0].image[3]['#text'] : logo}
         />
-        <div className={styles.artistInfo}>
+        <div className={stylePt.headerInfo}>
           <Typography
-            className={styles.artistName}
+            className={stylePt.nameComp}
             variant='h1'
             color='secondary'
             align='center'
@@ -95,7 +96,7 @@ const Albums = ({ match }) => {
           />
         </div>
       </div>
-      <Paper elevation={3} className={styles.albumInfo}>
+      <Paper elevation={3} className={stylePt.stylePaper}>
         <div className={styles.bio}>
           <Typography
             className={styles.artistBio}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStyles } from './styles';
+import { stylePattern } from '../../styles/albumsPattern';
 
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +15,7 @@ import { formatSummary } from '../../utils/Functions';
 
 const AlbumInfo = ({ match }) => {
   const styles = useStyles();
+  const stylePt = stylePattern();
   const [album, setAlbum] = useState('');
 
   useEffect(() => {
@@ -43,16 +45,16 @@ const AlbumInfo = ({ match }) => {
   }, []);
 
   return (
-    <Container className={styles.Container} maxWidth='sm'>
-      <div className={styles.Header}>
+    <Container className={stylePt.Container} maxWidth='sm'>
+      <div className={stylePt.Header}>
         <img
-          className={styles.albumImage}
+          className={stylePt.avatar}
           alt={album ? album.name : ''}
           src={album ? album.image[3]['#text'] : logo}
         />
-        <div className={styles.headerAlbum}>
+        <div className={stylePt.headerInfo}>
           <Typography
-            className={styles.albumName}
+            className={stylePt.nameComp}
             variant='h1'
             color='secondary'
             align='center'
@@ -64,20 +66,18 @@ const AlbumInfo = ({ match }) => {
           </Typography>
         </div>
       </div>
-      <Paper elevation={3} className={styles.albumInfo}>
+      <Paper elevation={3} className={stylePt.stylePaper}>
         {album ? (
           album.wiki ? (
             <>
-              <div className={styles.bio}>
-                <Typography
-                  className={styles.headerPaper}
-                  variant='subtitle1'
-                  color='secondary'
-                  align='center'
-                >
-                  SOBRE O ALBUM
-                </Typography>
-              </div>
+              <Typography
+                className={stylePt.headerPaper}
+                variant='subtitle1'
+                color='secondary'
+                align='center'
+              >
+                SOBRE O ALBUM
+              </Typography>
               <Divider light />
               <p className={styles.summary}>
                 {album
@@ -95,7 +95,7 @@ const AlbumInfo = ({ match }) => {
         )}
         <div>
           <Typography
-            className={styles.headerPaper}
+            className={stylePt.headerPaper}
             variant='subtitle2'
             color='secondary'
             align='center'
