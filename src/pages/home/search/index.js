@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStyles } from './styles';
 import Container from '@material-ui/core/Container';
 import logo from '../../../assets/logo.svg';
@@ -21,8 +21,24 @@ const Home = () => {
   const [artistSearch, setArtistSearch] = useState('');
   const [artists, setArtists] = useState([]);
 
-  const getArtists = async e => {
-    e.preventDefault();
+  useEffect(() => {
+    const getHistory = async () => {
+      const uid = JSON.parse(localStorage.getItem('user')).uid;
+      await firebase
+        .database()
+        .ref('historic/' + uid)
+        .orderByChild('dateAdded')
+        .limitToLast(1)
+        .once('value', snapshot => {
+          snapshot.forEach(child => {
+            getArtists(child.val().artistSearch);
+          });
+        });
+    };
+    getHistory();
+  }, []);
+
+  const getArtists = async artistSearch => {
     if (artistSearch.length > 0) {
       const response = await api.get('/', {
         params: {
@@ -36,6 +52,11 @@ const Home = () => {
       setArtists(response.data.results.artistmatches.artist);
       addSearchHistory(artistSearch);
     }
+  };
+
+  const handleSubmmitSearch = e => {
+    e.preventDefault();
+    getArtists(artistSearch);
   };
 
   const addSearchHistory = async artistSearch => {
@@ -64,13 +85,13 @@ const Home = () => {
         <Paper
           elevation={3}
           component='form'
-          onSubmit={getArtists}
+          onSubmit={handleSubmmitSearch}
           className={styles.searchBar}
         >
           <InputBase
             className={styles.input}
             autoFocus
-            placeholder='Pesquise por seu artista ou album favorito...'
+            placeholder='Pesquise por seu artista favorito...'
             inputProps={{ 'aria-label': 'search google maps' }}
             value={artistSearch}
             onChange={e => {

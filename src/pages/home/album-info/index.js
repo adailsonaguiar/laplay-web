@@ -35,7 +35,6 @@ const AlbumInfo = ({ match }) => {
         const error = response.data['error'] === 6 ? true : false;
         if (!error) {
           setAlbum(response.data.album);
-          console.log(response.data.album);
         }
       }
     };
