@@ -20,34 +20,20 @@ import api from '../../services/api';
 
 import { formatUrl, formatSummary } from '../../utils/Functions';
 
+import Pagination from '../pagination';
+
 const Albums = ({ match }) => {
   const styles = useStyles();
   const stylePt = stylePattern();
   const [albums, setAlbums] = useState([]);
   const [artist, setArtist] = useState('');
+  const [resultsPerPage] = useState(12);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const matches = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     const artistName = match.params.artist.split('-').join(' ');
-    const getAlbums = async () => {
-      if (artistName) {
-        const response = await api.get('/', {
-          params: {
-            format: 'json',
-            method: 'artist.gettopalbums',
-            artist: artistName,
-            api_key: '0c87b1c937645d216bda842e84fc5cfe',
-            limit: 12,
-            page: 1
-          }
-        });
-        const error = response.data['error'] === 6 ? true : false;
-        if (!error) {
-          setAlbums(response.data.topalbums.album);
-        }
-      }
-    };
-
     const getArtist = async () => {
       const response = await api.get('/', {
         params: {
@@ -60,9 +46,46 @@ const Albums = ({ match }) => {
       setArtist(response.data.artist);
     };
     getArtist();
-    getAlbums();
+    getAlbums(resultsPerPage, page);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const getAlbums = async (resultsPerPage, page) => {
+    const artistName = match.params.artist.split('-').join(' ');
+    if (artistName) {
+      const response = await api.get('/', {
+        params: {
+          format: 'json',
+          method: 'artist.gettopalbums',
+          artist: artistName,
+          api_key: '0c87b1c937645d216bda842e84fc5cfe',
+          limit: resultsPerPage,
+          page: page
+        }
+      });
+      const error = response.data['error'] === 6 ? true : false;
+      if (!error) {
+        setAlbums(response.data.topalbums.album);
+        setPage(response.data.topalbums['@attr'].page);
+        setTotalPages(response.data.topalbums['@attr'].totalPages);
+      }
+    }
+  };
+
+  const changePageNext = async () => {
+    // eslint-disable-next-line eqeqeq
+    if (page != totalPages) {
+      let currentPage = Number(page) + 1;
+      getAlbums(resultsPerPage, currentPage);
+    }
+  };
+
+  const changePagePrev = () => {
+    if (page > 1) {
+      let currentPage = Number(page) - 1;
+      getAlbums(resultsPerPage, currentPage);
+    }
+  };
 
   const getGridListCols = () => {
     if (matches) {
@@ -137,6 +160,12 @@ const Albums = ({ match }) => {
             </GridListTile>
           ))}
         </GridList>
+        <Pagination
+          page={page}
+          changePageNext={() => changePageNext()}
+          changePagePrev={() => changePagePrev()}
+          totalPage={totalPages}
+        />
       </Paper>
     </Container>
   );
