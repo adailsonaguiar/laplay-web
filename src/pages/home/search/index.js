@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useStyles } from './styles';
 import Container from '@material-ui/core/Container';
-import logo from '../../assets/logo.svg';
+import logo from '../../../assets/logo.svg';
 import firebase from 'firebase';
 
 import Paper from '@material-ui/core/Paper';
@@ -12,9 +12,9 @@ import Link from '@material-ui/core/Link';
 import SearchIcon from '@material-ui/icons/Search';
 import FilterNone from '@material-ui/icons/FilterNone';
 
-import api from '../../services/api';
+import api from '../../../services/api';
 
-import { formatUrl } from '../../utils/Functions';
+import { formatUrl } from '../../../utils/Functions';
 
 const Home = () => {
   const styles = useStyles();

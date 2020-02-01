@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import logo from '../../assets/logo.svg';
+import logo from '../../../assets/logo.svg';
 
 import firebase from 'firebase';
 

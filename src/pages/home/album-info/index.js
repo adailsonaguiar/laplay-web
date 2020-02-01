@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStyles } from './styles';
-import { stylePattern } from '../../styles/albumsPattern';
+import { stylePattern } from '../../../styles/albumsPattern';
 
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
@@ -8,10 +8,10 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 
-import logo from '../../assets/icon.svg';
-import api from '../../services/api';
+import logo from '../../../assets/icon.svg';
+import api from '../../../services/api';
 
-import { formatSummary } from '../../utils/Functions';
+import { formatSummary } from '../../../utils/Functions';
 
 const AlbumInfo = ({ match }) => {
   const styles = useStyles();

@@ -1,10 +1,10 @@
 import { Switch, Route, HashRouter } from 'react-router-dom';
 import React from 'react';
-import Album from '../../components/albums';
-import AlbumInfo from '../../components/album-info';
+import Album from './albums';
+import AlbumInfo from './album-info';
 import Sidebar from '../../components/sidebar/Sidebar';
-import Search from '../../components/search';
-import HistorySearch from '../../components/search-history';
+import Search from './search';
+import HistorySearch from './search-history';
 
 const Home = () => {
   return (

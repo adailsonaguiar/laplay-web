@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStyles } from './styles';
-import { stylePattern } from '../../styles/albumsPattern';
+import { stylePattern } from '../../../styles/albumsPattern';
 
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
@@ -15,12 +15,12 @@ import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import logo from '../../assets/icon.svg';
-import api from '../../services/api';
+import logo from '../../../assets/icon.svg';
+import api from '../../../services/api';
 
-import { formatUrl, formatSummary } from '../../utils/Functions';
+import { formatUrl, formatSummary } from '../../../utils/Functions';
 
-import Pagination from '../pagination';
+import Pagination from '../../../components/pagination';
 
 const Albums = ({ match }) => {
   const styles = useStyles();
